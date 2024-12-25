@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<section>
+    <header>
+        <h1>Booking Confirmation</h1>
+    </header>
+    <table>
+        <tr><th colspan="2">Your Booking Status</th></tr>
+        <tr>
+            <td><b>Attendee Name</b></td>
+            <td th:text="${attendeeName}"></td>
+        </tr>
+        <tr>
+            <td><b>Client IP Address</b></td>
+            <td th:text="${ipAddress}"></td>
+        </tr>
+        <tr>
+            <td><b>Booking for Event</b></td>
+            <td th:text="${eventName}"></td>
+        </tr>
+        <tr>
+            <td><b>Number of Tickets</b></td>
+            <td th:text="${numTickets}"></td>
+        </tr>
+    </table>
+    <a th:href="@{/events}">Back to Events</a>
+</section>
+</body>
+</html>

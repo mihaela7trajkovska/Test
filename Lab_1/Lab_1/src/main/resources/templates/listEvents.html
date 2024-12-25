@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Booking Page - Choose an Event</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<header>
+    <h1>Welcome to our Event Booking App</h1>
+</header>
+<main>
+    <h2>Choose an event:</h2>
+    <form th:action="@{/bookings/book/{eventId}(eventId=${selectedEventId})}" method="post">
+        <ul>
+            <li th:each="event : ${events}">
+                <!-- Select event by ID -->
+                <input type="radio" name="eventId" th:value="${event.id}" required/>
+                <span th:text="'Name: ' + ${event.name} + ', Description: ' + ${event.description} + ', Rating: ' + ${event.popularityScore}"></span>
+                <br/>
+
+                <!-- Location information -->
+                <span th:text="'Location: ' + ${event.location.name} + ', Address: ' + ${event.location.address}"></span>
+                <br/>
+
+                <!-- Edit and Delete buttons -->
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/events/edit-form/{id}(id=${event.id})}">
+                    <button type="button">Edit</button>
+                </a>
+                <form th:action="@{/events/delete/{id}(id=${event.id})}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                </th:block>
+            </li>
+        </ul>
+
+        <!-- Number of tickets input -->
+        <h2>Choose number of tickets:</h2>
+        <input type="number" name="numTickets" min="1" max="10" required/><br/><br/>
+        <input type="submit" value="Submit"/>
+    </form>
+
+    <!-- Add New Event button -->
+    <a th:href="@{/events/add-form}">
+        <button type="button">Add New Event</button>
+    </a>
+
+</main>
+</body>
+</html>
